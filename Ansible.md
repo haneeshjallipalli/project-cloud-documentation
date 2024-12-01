@@ -243,3 +243,9 @@ vi remote_playbook.yml
 ansible-playbook -i inventory.ini -l web1 remote_playbook.yml
 
 ```
+
+## To install ansible on windows
+```
+pip install ansible
+
+```
