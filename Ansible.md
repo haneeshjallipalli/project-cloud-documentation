@@ -13,6 +13,11 @@ yum update -y
 amazon-linux-extras install ansible2 -y
 
 ```
+or 
+```
+yum install ansible -y
+
+```
 ## To check Ansible version
 ```
 ansible --version
