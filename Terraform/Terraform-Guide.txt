@@ -20,7 +20,7 @@ Default output format [None]: json
 
 
 3) main.tf
-
+```
 provider "aws" {
   region = "us-west-2"
 }
@@ -33,7 +33,7 @@ resource "aws_instance" "example-terraform" {
     Name = "example-terraform"
   }
 }
-
+```
 
 4) terraform init
 5) terraform plan
