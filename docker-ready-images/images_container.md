@@ -21,3 +21,15 @@ docker run -d --name jaeger \
   jaegertracing/all-in-one:1.6.0
 
 ```
+You can then navigate to http://IP:16686 to access the Jaeger UI.
+
+The container exposes the following ports:
+
+Port	Protocol	Component	Function
+5775	UDP	agent	accept zipkin.thrift over compact thrift protocol
+6831	UDP	agent	accept jaeger.thrift over compact thrift protocol
+6832	UDP	agent	accept jaeger.thrift over binary thrift protocol
+5778	HTTP	agent	serve configs
+16686	HTTP	query	serve frontend
+14268	HTTP	collector	accept jaeger.thrift directly from clients
+9411	HTTP	collector	Zipkin compatible endpoint
