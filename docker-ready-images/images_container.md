@@ -125,3 +125,8 @@ Port	Protocol	Component	Function
 16686	HTTP	query	serve frontend
 14268	HTTP	collector	accept jaeger.thrift directly from clients
 9411	HTTP	collector	Zipkin compatible endpoint
+
+## Jenkins in docker
+```
+docker run -p 8080:8080 -p 50000:50000 --restart=on-failure jenkins/jenkins:lts-jdk17
+```
