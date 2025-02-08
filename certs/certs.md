@@ -1,4 +1,4 @@
-### **🚀 Step-by-Step Guide: Installing Certbot & Setting Up SSL for `haneesh.cloud`**  
+### **🚀 Step-by-Step Guide: Installing Certbot & Setting Up SSL for `example.cloud`**  
 
 Since you are using **Certbot** for real SSL certificates (Let's Encrypt), follow these steps to install, generate, and configure your SSL certificates correctly.
 
@@ -14,14 +14,14 @@ This installs **Certbot**, which will automatically obtain and renew SSL certifi
 
 ---
 
-## **2️⃣ Obtain SSL Certificates for `haneesh.cloud`**
+## **2️⃣ Obtain SSL Certificates for `example.cloud`**
 Run this command to generate a **free Let's Encrypt SSL certificate**:
 ```bash
 sudo certbot certonly --standalone -d example.cloud
 ```
 - **`certonly`** → Only get the certificate (we manually configure Nginx).
 - **`--standalone`** → Uses a temporary web server to verify your domain.
-- **`-d haneesh.cloud`** → Replace with your actual domain.
+- **`-d example.cloud`** → Replace with your actual domain.
 
 📌 **IMPORTANT:** Your domain **must point to your EC2 instance** before running this command.
 
@@ -35,8 +35,8 @@ After obtaining the certificate, Certbot stores it in:
 Now, copy the required files to your project’s `certs/` folder:
 ```bash
 mkdir -p certs
-sudo cp /etc/letsencrypt/live/haneesh.cloud/fullchain.pem certs/example.cloud.crt
-sudo cp /etc/letsencrypt/live/haneesh.cloud/privkey.pem certs/example.cloud.key
+sudo cp /etc/letsencrypt/live/example.cloud/fullchain.pem certs/example.cloud.crt
+sudo cp /etc/letsencrypt/live/example.cloud/privkey.pem certs/example.cloud.key
 ```
 
 **Set correct permissions:**
@@ -53,7 +53,7 @@ Modify your `nginx.conf` file to use the newly obtained **real SSL certificates*
 ```nginx
 server {
     listen 80;
-    server_name haneesh.cloud;
+    server_name example.cloud;
 
     # Redirect all HTTP requests to HTTPS
     return 301 https://$host$request_uri;
@@ -61,10 +61,10 @@ server {
 
 server {
     listen 443 ssl;
-    server_name haneesh.cloud;
+    server_name example.cloud;
 
-    ssl_certificate /etc/nginx/certs/haneesh.cloud.crt;
-    ssl_certificate_key /etc/nginx/certs/haneesh.cloud.key;
+    ssl_certificate /etc/nginx/certs/example.cloud.crt;
+    ssl_certificate_key /etc/nginx/certs/example.cloud.key;
 
     location / {
         proxy_pass http://example.cloud:80;
