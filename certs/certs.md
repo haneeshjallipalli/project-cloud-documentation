@@ -96,7 +96,7 @@ sudo crontab -e
 ```
 Add this line to renew the certificate automatically every 3 months:
 ```
-0 3 * * * certbot renew --quiet --post-hook "systemctl reload nginx"
+0 3 * * * certbot renew --quiet --post-hook "docker restart nginx-server"
 ```
 - `0 3 * * *` → Runs at **3 AM every day**.
 - `certbot renew --quiet` → Renews certificates if needed.
