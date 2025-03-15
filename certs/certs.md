@@ -1,4 +1,4 @@
-### **🚀 Step-by-Step Guide: Installing Certbot & Setting Up SSL for `example.cloud`**  
+### **🚀 Step-by-Step Guide: Installing Certbot & Setting Up SSL for `haneesh.cloud`**  
 
 Since you are using **Certbot** for real SSL certificates (Let's Encrypt), follow these steps to install, generate, and configure your SSL certificates correctly.
 
@@ -14,14 +14,14 @@ This installs **Certbot**, which will automatically obtain and renew SSL certifi
 
 ---
 
-## **2️⃣ Obtain SSL Certificates for `example.cloud`**
+## **2️⃣ Obtain SSL Certificates for `haneesh.cloud`**
 Run this command to generate a **free Let's Encrypt SSL certificate**:
 ```bash
-sudo certbot certonly --standalone -d example.cloud
+sudo certbot certonly --standalone -d haneesh.cloud
 ```
 - **`certonly`** → Only get the certificate (we manually configure Nginx).
 - **`--standalone`** → Uses a temporary web server to verify your domain.
-- **`-d example.cloud`** → Replace with your actual domain.
+- **`-d haneesh.cloud`** → Replace with your actual domain.
 
 📌 **IMPORTANT:** Your domain **must point to your EC2 instance** before running this command.
 
@@ -30,19 +30,19 @@ sudo certbot certonly --standalone -d example.cloud
 ## **3️⃣ Copy Certificates to Your `certs/` Directory**
 After obtaining the certificate, Certbot stores it in:
 ```
-/etc/letsencrypt/live/example.cloud/
+/etc/letsencrypt/live/haneesh.cloud/
 ```
 Now, copy the required files to your project’s `certs/` folder:
 ```bash
 mkdir -p certs
-sudo cp /etc/letsencrypt/live/example.cloud/fullchain.pem certs/example.cloud.crt
-sudo cp /etc/letsencrypt/live/example.cloud/privkey.pem certs/example.cloud.key
+sudo cp /etc/letsencrypt/live/haneesh.cloud/fullchain.pem certs/haneesh.cloud.crt
+sudo cp /etc/letsencrypt/live/haneesh.cloud/privkey.pem certs/haneesh.cloud.key
 ```
 
 **Set correct permissions:**
 ```bash
-sudo chmod 644 certs/example.cloud.crt
-sudo chmod 600 certs/example.cloud.key
+sudo chmod 644 certs/haneesh.cloud.crt
+sudo chmod 600 certs/haneesh.cloud.key
 ```
 
 ---
@@ -53,7 +53,7 @@ Modify your `nginx.conf` file to use the newly obtained **real SSL certificates*
 ```nginx
 server {
     listen 80;
-    server_name example.cloud;
+    server_name haneesh.cloud;
 
     # Redirect all HTTP requests to HTTPS
     return 301 https://$host$request_uri;
@@ -61,13 +61,13 @@ server {
 
 server {
     listen 443 ssl;
-    server_name example.cloud;
+    server_name haneesh.cloud;
 
-    ssl_certificate /etc/nginx/certs/example.cloud.crt;
-    ssl_certificate_key /etc/nginx/certs/example.cloud.key;
+    ssl_certificate /etc/nginx/certs/haneesh.cloud.crt;
+    ssl_certificate_key /etc/nginx/certs/haneesh.cloud.key;
 
     location / {
-        proxy_pass http://example.cloud:80;
+        proxy_pass http://haneesh.cloud:80;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -114,7 +114,7 @@ docker-compose up -d --build
 2️⃣ **Verify SSL Is Working**
 Check the SSL certificate details in the browser by visiting:
 ```
-https://example.cloud
+https://haneesh.cloud
 ```
 
 3️⃣ **Manually Test SSL Renewal**
